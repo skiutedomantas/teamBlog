@@ -1,0 +1,271 @@
+---
+const { title, posts, activePostId } = Astro.props;
+
+const tags = ["development", "design", "user experience"];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>{title} | Team 8</title>
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="/" class="logo">
+          Team<span> 8</span>
+        </a>
+
+        <p class="nav-label">CATEGORIES</p>
+
+        {
+          tags.map((tag) => {
+            const categoryPosts = posts.filter((post) => post.data.tag === tag);
+
+            return (
+              <details open={tag === "development"}>
+                <summary>{tag}</summary>
+
+                <ul>
+                  {categoryPosts.map((post) => (
+                    <li>
+                      <a
+                        href={`/blog/${post.id}/`}
+                        class={activePostId === post.id ? "active" : ""}
+                      >
+                        {post.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            );
+          })
+        }
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <span>TEAM 8 /// BARCO</span>
+        </header>
+        <div class="content">
+          <slot />
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #0b1220;
+    color: #e2e8f0;
+    font-family: Inter, system-ui, sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .layout {
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 260px;
+    padding: 30px 22px;
+    background: #101827;
+    border-right: 1px solid #263449;
+    overflow-y: auto;
+  }
+
+  .logo {
+    display: block;
+    margin-bottom: 48px;
+    color: #f1f5f9;
+    font-size: 23px;
+    font-weight: 750;
+  }
+
+  .logo span {
+    color: #60a5fa;
+  }
+
+  .nav-label {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+  }
+
+  details {
+    margin-bottom: 12px;
+  }
+
+  summary {
+    cursor: pointer;
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 0;
+    text-transform: capitalize;
+  }
+
+  summary:hover {
+    color: #60a5fa;
+  }
+
+  details ul {
+    list-style: none;
+    padding-left: 13px;
+    margin: 5px 0 15px;
+    border-left: 1px solid #334155;
+  }
+
+  details li a {
+    display: block;
+    padding: 8px 10px;
+    color: #94a3b8;
+    font-size: 13px;
+    border-radius: 5px;
+    line-height: 1.5;
+  }
+
+  details li a:hover,
+  details li a.active {
+    color: #60a5fa;
+    background: #1e293b;
+  }
+
+  main {
+    margin-left: 260px;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    height: 65px;
+    padding: 0 45px;
+    border-bottom: 1px solid #263449;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #94a3b8;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .status {
+    color: #60a5fa;
+    font-size: 11px;
+  }
+
+  .content {
+    max-width: 950px;
+    padding: 65px 55px;
+    margin: auto;
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    letter-spacing: -1.5px;
+    color: #f8fafc;
+  }
+
+  h2 {
+    color: #f1f5f9;
+  }
+
+  .eyebrow {
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .description {
+    color: #94a3b8;
+    line-height: 1.8;
+  }
+
+  .post-link {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid #263449;
+    color: #e2e8f0;
+  }
+
+  .post-link:hover h3 {
+    color: #60a5fa;
+  }
+
+  .post-link p {
+    color: #94a3b8;
+    font-size: 14px;
+  }
+
+  .markdown {
+    margin-top: 45px;
+    color: #cbd5e1;
+    line-height: 1.85;
+  }
+
+  .markdown h2,
+  .markdown h3 {
+    margin-top: 40px;
+  }
+
+  .markdown a {
+    color: #60a5fa;
+  }
+
+  .markdown pre {
+    padding: 20px;
+    overflow-x: auto;
+    border: 1px solid #263449;
+    border-radius: 8px;
+    background: #111c2e;
+  }
+
+  .markdown code {
+    font-family: monospace;
+    color: #93c5fd;
+  }
+
+  @media (max-width: 700px) {
+    .sidebar {
+      position: relative;
+      width: 100%;
+      max-height: none;
+      border-right: none;
+      border-bottom: 1px solid #263449;
+    }
+
+    .logo {
+      margin-bottom: 25px;
+    }
+
+    main {
+      margin-left: 0;
+    }
+
+    .content {
+      padding: 35px 22px;
+    }
+
+    .topbar {
+      padding: 0 22px;
+    }
+  }
+</style>

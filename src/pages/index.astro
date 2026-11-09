@@ -1,16 +1,18 @@
 ---
+import { getCollection } from "astro:content";
+import BlogLayout from "../layouts/BlogLayout.astro";
+
+const posts = await getCollection("blog");
+
+const tags = ["development", "design", "user experience"];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BlogLayout title="Home" posts={posts}>
+  <p class="eyebrow">WELCOME TO OUR BLOG</p>
+  <h1>Behind the project</h1>
+  <p class="description">
+    This is a page where we documented and reflected every step of our project.
+    We share the procress behind what we achieved including the struggles and
+    steps we took to it.
+  </p>
+</BlogLayout>
