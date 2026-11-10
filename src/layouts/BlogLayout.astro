@@ -15,7 +15,7 @@ const tags = ["development", "design", "user experience"];
   <body>
     <div class="layout">
       <aside class="sidebar">
-        <a href="/teamBlog" class="logo">
+        <a href={import.meta.env.BASE_URL} class="logo">
           Team<span> 8</span>
         </a>
 
@@ -33,7 +33,7 @@ const tags = ["development", "design", "user experience"];
                   {categoryPosts.map((post) => (
                     <li>
                       <a
-                        href={`blog/${post.id}/`}
+                        href={`${import.meta.env.BASE_URL}/blog/${post.id}/`}
                         class={activePostId === post.id ? "active" : ""}
                       >
                         {post.data.title}
