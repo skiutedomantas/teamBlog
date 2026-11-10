@@ -33,7 +33,7 @@ const tags = ["development", "design", "user experience"];
                   {categoryPosts.map((post) => (
                     <li>
                       <a
-                        href={`teamBlog/blog/${post.id}/`}
+                        href={`blog/${post.id}/`}
                         class={activePostId === post.id ? "active" : ""}
                       >
                         {post.data.title}
