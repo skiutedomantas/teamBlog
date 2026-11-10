@@ -25,3 +25,14 @@ const posts = await getCollection("blog");
     <Content />
   </article>
 </BlogLayout>
+
+<script>
+  document.querySelectorAll(".markdown img").forEach((img) => {
+    const src = img.getAttribute("src");
+
+    if (src?.startsWith("/images/")) {
+      const base = import.meta.env.BASE_URL.replace(/\/+$/, "");
+      img.setAttribute("src", `${base}${src}`);
+    }
+  });
+</script>
